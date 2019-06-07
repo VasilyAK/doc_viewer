@@ -1,0 +1,11 @@
+include product
+mixin mixProducts (arrProductByDocs, docId)
+  div(class="products card")
+    div(class="card-header px-0 py-0")
+      button(class="products__header-btn btn btn-link" type="button" data-target="products" + docId)
+        div(class="fa fa-caret-down" aria-hidden="true")
+        div(class="products__header") Товаров&nbsp;#{arrProductByDocs.length}
+    div(id="products" + docId class="collapse")
+      div(class="card-body py-0")
+        each val in arrProductByDocs
+          +mixProduct(val.imgUrl, val.imgAlt, val.productName, val.productQuantity, val.productPrice, val.productCost)

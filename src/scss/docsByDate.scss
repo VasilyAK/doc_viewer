@@ -1,0 +1,25 @@
+.docsByDate__header-btn {
+  @include header-btn();
+}
+
+  .docsByDate__header-btn>.fa,
+  .docsByDate__header-date,
+  .docsByDate__header-info {
+    @include text-style__date-block-header();
+    padding: 0 0.5rem;
+  }
+
+  .docsByDate__header-btn>.fa {
+    width: $chevron-width;
+  }
+
+  .docsByDate__header-date {
+    text-align: left;
+    white-space: nowrap;
+    width: calc(25% - #{$chevron-width});
+  }
+
+  .docsByDate__header-info {
+    text-align: right;
+    width: calc(75% - #{$chevron-width});
+  }

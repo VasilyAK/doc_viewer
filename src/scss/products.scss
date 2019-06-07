@@ -1,0 +1,32 @@
+.products__header-btn {
+  @include header-btn();
+}
+
+  .products__header-btn>.fa, .products__header {
+    @include text-style__doc-block-header();
+  }
+
+  .products__header-btn>.fa {
+    flex: 0 0 $caret-width;
+  }
+
+  .products__header {
+    flex: 1 0 calc(100% - #{$caret-width});
+    text-align: left;
+  }
+
+  .product-block {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+
+@media (max-width: 541px) {
+  .products__header-btn {
+    padding: 1rem 0;
+  }
+
+  .card-body {
+    padding: 0;
+  }
+}

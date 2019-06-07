@@ -1,0 +1,12 @@
+include docs
+mixin mixDocsByDate (docDate, arrDocs, totalCost, docDateId)
+  div(class="docsByDate card mt-2")
+    div(class="card-header px-0 py-0")
+      button(class="docsByDate__header-btn btn btn-link px-1" type="button" data-target="date"+docDateId)
+        div(class="fa fa-chevron-down" aria-hidden="true")
+        div(class="docsByDate__header-date") #{docDate.replace(/\s/g, '\u00A0')}
+        div(class="docsByDate__header-info") Документов:&nbsp;#{arrDocs.length} (#{totalCost.replace(/\s/g, '\u00A0').replace('.', ',')}&nbsp;&#8381;)
+    div(id="date"+docDateId class="collapse")
+      div(class="card-body accordion py-0 px-0")
+        each val in arrDocs
+          +mixDocs(val.docType, val.docId, val.summ, val.arrProductByDocs)

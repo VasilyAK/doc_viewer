@@ -1,0 +1,28 @@
+.docs {
+  border-bottom: 1px solid $light-grey-color!important;
+}
+
+  .docs__header {
+    @include header-btn();
+    padding-bottom: 0;
+  }
+
+    .docs__header-doc-type, .docs__header-summ {
+      @include text-style__doc-block-header();
+    }
+
+    .docs__header-doc-type {
+      flex: 1 0 70%;
+      text-align: left;
+    }
+
+    .docs__header-summ {
+      flex: 1 0 30%;
+      text-align: right;
+    }
+
+@media (max-width: 541px) {
+  .docs__header {
+    padding: 1rem 0 0;
+  }
+}

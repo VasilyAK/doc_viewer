@@ -1,0 +1,10 @@
+include products
+mixin mixDocs (docType, docId, summ, arrProductByDocs)
+  div(class="docs card px-3")
+    div(class="card-header px-0 py-0")
+      div(class="docs__header")
+        div(class="docs__header-doc-type") #{docType} №&nbsp;#{docId}
+        div(class="docs__header-summ") #{summ.replace(/\s/g, '\u00A0').replace('.', ',')}&nbsp;&#8381;
+    div(class="card-body accordion px-0 py-0")
+      div(class="product-block")
+        +mixProducts(arrProductByDocs, docId)

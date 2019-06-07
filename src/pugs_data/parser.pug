@@ -1,0 +1,109 @@
+block getData
+	include data
+		- var arrData = (function getData (data) {
+		-    var monthName = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
+		-
+		-    var dataParseDate = [];
+		-    var arrOfDate = [];
+		-    for (var val in data){
+		-      var day = (new Date(data[val][0])).getDay();
+		-      var month = monthName.find(function(month, index){
+		-        return index === (new Date(data[val][0])).getMonth() ? month : "ERROR"
+		-      });
+		-      var docDate = day + " " + month;
+		-
+		-      if (!(arrOfDate.includes(docDate))){
+		-        arrOfDate.push(docDate)
+		-      }
+		-
+		-      dataParseDate.push({
+		-        docDate: docDate,
+		-        others: {
+		-          docType: data[val][1],
+		-          docId: data[val][2],
+		-          imgUrl: data[val][3],
+		-          productName: data[val][4],
+		-          productPrice: data[val][5],
+		-          productQuantity: data[val][6]
+		-        }
+		-      })
+		-    }
+		-
+		-    var dataByDate = [];
+		-    for (var val1 in arrOfDate) {
+		-      var arrDocId = [];
+		-
+		-      var docId = dataParseDate.filter(function(item) {
+		-        return item.docDate === arrOfDate[val1]
+		-      }).map(function(item2) {
+		-        return item2.others.docId
+		-      });
+		-
+		-      docId.forEach(function(item) {
+		-        if (!(arrDocId.includes(item))) {
+		-          arrDocId.push(item);
+		-          }
+		-      });
+		-
+		-      dataByDate.push({
+		-        docDate: arrOfDate[val1],
+		-        arrDocs: dataParseDate.filter(function(item) {
+		-          return item.docDate === arrOfDate[val1]
+		-        }).map(function(item2) {
+		-          return item2.others
+		-        }),
+		-        arrDocId: arrDocId // нужно для парсинга по id
+		-      })
+		-    }
+		-
+		-    var docDateId = 1;
+		-		 var dataByDateByDocId = [];
+		-    var arrDocs = [];
+		-    for (var data in dataByDate){
+		-      for (var docId1 in dataByDate[data].arrDocId) {
+		-        var result = dataByDate[data].arrDocs.filter(function(item) {
+		-          return item.docId === dataByDate[data].arrDocId[docId1]
+		-        });
+		-
+		-        var arrProductByDocs = result.map(function(item2) {
+		-          var productCost = parseFloat(item2.productQuantity)*parseFloat(item2.productPrice);
+		-          return {
+		-            imgUrl: item2.imgUrl,
+		-            imgAlt: '',
+		-           	productName: item2.productName,
+		-          		productQuantity: item2.productQuantity,
+		-        		  productPrice: parseFloat(item2.productPrice).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 "),
+		-							productCost: productCost.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ")
+		-           }
+		-        });
+		-
+		-        var summ = 0;
+		-        arrProductByDocs.forEach(function(item) {
+		-          summ += parseFloat(item.productCost.replace(/\s/g, ''))
+		-        });
+		-
+		-        arrDocs.push({
+		-          docType: result[0].docType, // из расчета, что id однозначно определяет type
+		-          docId: dataByDate[data].arrDocId[docId1],
+		-          summ: summ.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 "),
+		-          arrProductByDocs: arrProductByDocs
+		-        });
+		-      }
+		-
+		-      var totalCost = 0;
+		-      arrDocs.forEach(function(item) {
+		-        totalCost += parseFloat(item.summ.replace(/\s/g, ''))
+		-      });
+		-
+		-      dataByDateByDocId.push({
+		-        docDateId: docDateId,
+		-				 docDate: dataByDate[data].docDate,
+		-        arrDocs: arrDocs,
+		-        totalCost: totalCost.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1 ")
+		-      });
+		-
+		-      arrDocs = [];
+		-			 docDateId++;
+		-    }
+		-    return dataByDateByDocId
+		-  })(data)

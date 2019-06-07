@@ -1,0 +1,27 @@
+mixin mixProduct(imgUrl, imgAlt, productName, productQuantity, productPrice, productCost)
+  - var char = productQuantity % 10;
+  - var quant;
+  - switch (char) {
+  -   case 1:
+  -     quant = "штука";
+  -     break;
+  -   case 2:
+  -   case 3:
+  -   case 4:
+  -     quant = "штуки";
+  -     break;
+  -   default:
+  -     quant = "штук";
+  -     break;
+  - }
+  div(class="product mb-3")
+    div(class="product__img-block")
+      if imgUrl
+        img(class="product__img" src=imgUrl alt=imgAlt onError="this.src='images/no_img.png'")
+      else
+        img(class="product__img" src="images/no_img.png" alt=imgAlt)
+    div(class="product__info")
+      div(class="product__info-name") #{productName}
+      div(class="product__info-statistic")
+        div(class="product-info-statistic__quantity") #{productQuantity}&nbsp;#{quant}&nbsp;&#215;&nbsp;#{productPrice.replace(/\s/g, '\u00A0').replace('.', ',')}&nbsp;&#8381;
+        div(class="product-info-statistic__cost") #{productCost.replace(/\s/g, '\u00A0').replace('.', ',')}&nbsp;&#8381;

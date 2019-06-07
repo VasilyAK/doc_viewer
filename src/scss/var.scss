@@ -1,0 +1,56 @@
+$dark-color: #0f0f0f;
+$grey-color: #878787;
+$light-grey-color: #c3c3c3;
+$white-color: #ffffff;
+
+$chevron-width: 25px;
+$caret-width: 25px;
+
+@mixin text-style__date-block-header () {
+  color: $grey-color;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+@mixin text-style__doc-block-header () {
+  color: $grey-color;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+@mixin text-style__product-block-name () {
+  color: $dark-color;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 18px;
+
+  @media (max-width: 541px){
+    font-size: 14px;
+    line-height: 16px;
+  }
+}
+
+@mixin text-style__product-block-quantity () {
+  color: $dark-color;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+
+  @media (max-width: 541px){
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+  }
+}
+
+@mixin header-btn () {
+  background: $white-color;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  padding: 1rem;
+  text-decoration: none!important;
+  width: 100%;
+}
